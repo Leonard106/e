@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Servicio Social</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+
+    <style>
+        /* =======================================================
+           Estilos Específicos para el Header tipo "TramiFES"
+           ======================================================= */
+        .hero-unam {
+            /* Usamos el color de base.css, con un fallback si no carga */
+            background-color: var(--unam-azul, #002B7F);
+            color: white;
+            /* Corte diagonal inferior */
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            padding-top: 2rem;
+            padding-bottom: 8rem;
+        }
+
+        .hero-logos img {
+            height: 65px;
+            object-fit: contain;
+        }
+
+        /* Elevamos las tarjetas sobre el fondo blanco */
+        .main-content {
+            margin-top: -3rem;
+            z-index: 10;
+            position: relative;
+        }
+
+        /* Efecto al pasar el mouse */
+        .card-acceso:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+<header class="hero-unam text-center">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-start mb-5 px-3">
+            <div class="hero-logos d-flex align-items-center">
+                <img th:src="@{/img/logos-unam-fes-aragon.png}" alt="Escudo UNAM" class="me-3">
+
+            </div>
+            <div class="hero-logos text-end">
+                <img th:src="@{/img/ico-unam-fesa.png}" alt="Logo Ingeniería en Computación">
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <i class="bi bi-clock-history" style="font-size: 4.5rem; color: var(--unam-oro, #D4AF37);"></i>
+        </div>
+        <h1 class="display-5 fw-bold mb-2">Laboratorio de Macrodatos</h1>
+        <p class="lead text-uppercase" style="letter-spacing: 2px; font-size: 1.1rem;">
+            Sistema de Control de Horas de Servicio Social
+        </p>
+    </div>
+</header>
+
+<main class="container main-content flex-grow-1 mb-5">
+    <div class="row g-4 justify-content-center">
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0 pt-4 px-2 card-acceso">
+                <div class="card-body text-center d-flex flex-column">
+                    <i class="bi bi-shield-lock-fill mb-3" style="font-size: 2.5rem; color: var(--unam-azul, #002B7F);"></i>
+                    <h3 class="card-title h5 fw-bold text-dark">Administrador</h3>
+                    <hr class="w-25 mx-auto my-3" style="border-top: 3px solid var(--unam-oro, #D4AF37); opacity: 1;">
+                    <p class="card-text text-muted mb-4 small">Gestión general de programas, profesores y reportes globales.</p>
+                    <a th:href="@{/serviciosocial/login/admin}" class="btn btn-unam-blue rounded-pill mt-auto w-100" style="background-color: var(--unam-azul, #002B7F); color: white;">Iniciar Sesión</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0 pt-4 px-2 card-acceso">
+                <div class="card-body text-center d-flex flex-column">
+                    <i class="bi bi-person-video3 mb-3" style="font-size: 2.5rem; color: var(--unam-azul, #002B7F);"></i>
+                    <h3 class="card-title h5 fw-bold text-dark">Profesor</h3>
+                    <hr class="w-25 mx-auto my-3" style="border-top: 3px solid var(--unam-oro, #D4AF37); opacity: 1;">
+                    <p class="card-text text-muted mb-4 small">Alta de alumnos, revisión de avances y gestión de programas asignados.</p>
+                    <a th:href="@{/serviciosocial/login-profesor}" class="btn btn-unam-blue rounded-pill mt-auto w-100" style="background-color: var(--unam-azul, #002B7F); color: white;">Iniciar Sesión</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0 pt-4 px-2 card-acceso">
+                <div class="card-body text-center d-flex flex-column">
+                    <i class="bi bi-mortarboard-fill mb-3" style="font-size: 2.5rem; color: var(--unam-azul, #002B7F);"></i>
+                    <h3 class="card-title h5 fw-bold text-dark">Alumno</h3>
+                    <hr class="w-

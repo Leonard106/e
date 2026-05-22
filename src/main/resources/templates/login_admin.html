@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Administrador - Laboratorio de Macrodatos</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+
+    <style>
+        .login-header {
+            background-color: var(--unam-azul, #002B7F);
+            color: white;
+            padding: 1.5rem 0;
+            border-bottom: 4px solid var(--unam-oro, #D4AF37);
+        }
+        .login-card {
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: none;
+        }
+        .icon-container {
+            width: 80px;
+            height: 80px;
+            background-color: var(--fondo-sitio, #f4f6f9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: -40px auto 20px; /* Sube el ícono para que sobresalga de la tarjeta */
+            border: 4px solid white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-light d-flex flex-column min-vh-100">
+
+<header class="login-header text-center shadow-sm">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a th:href="@{/serviciosocial/pag_inicio}" class="text-white text-decoration-none">
+            <i class="bi bi-arrow-left-circle-fill me-2"></i>Volver al inicio
+        </a>
+        <h2 class="h5 mb-0 fw-bold">Plataforma de Servicio Social</h2>
+        <div style="width: 100px;"></div>
+    </div>
+</header>
+
+<main class="container my-auto flex-grow-1 d-flex align-items-center justify-content-center">
+    <div class="col-12 col-md-8 col-lg-5 mt-5">
+        <div class="card login-card mt-4">
+            <div class="card-body p-4 p-md-5 text-center">
+
+                <div class="icon-container">
+                    <i class="bi bi-shield-lock-fill" style="font-size: 2.5rem; color: var(--unam-azul, #002B7F);"></i>
+                </div>
+
+                <h2 class="h4 fw-bold mb-4" style="color: var(--unam-azul, #002B7F);">Acceso Administrativo</h2>
+
+                <div th:if="${error}" class="alert alert-danger d-flex align-items-center" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    <span th:text="${error}"></span>
+                </div>
+
+                <form th:action="@{/serviciosocial/login/admin}" method="POST" class="text-start">
+
+                    <div class="mb-3">
+                        <label for="usuario" class="form-label fw-semibold text-muted small">Usuario o Correo Institucional</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0"><i class="bi bi-person-fill text-muted"></i></span>
+                            <input type="text" class="form-control border-start-0 ps-0" id="usuario" name="usuario" required placeholder="ejemplo@aragon.unam.mx">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="password" class="form-label fw-semibold text-muted small">Contraseña</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0"><i class="bi bi-key-fill text-muted"></i></span>
+                            <input type="password" class="form-control border-start-0 ps-0" id="password" name="password" required placeholder="••••••••">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn w-100 rounded-pill py-2" style="background-color: var(--unam-azul, #002B7F); color: white; font-weight: 600;">
+                        Ingresar al Sistema
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="bg-white text-center py-3 mt-auto border-top shadow-sm">
+    <div class="container text-muted small">
+        &copy; 2026 Facultad de Estudios Superiores Aragón, UNAM.<br>
+        Ingeniería en Computación - Laboratorio de Macrodatos.
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

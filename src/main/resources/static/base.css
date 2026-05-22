@@ -1,0 +1,83 @@
+/* ==========================================================================
+   Variables Globales y Paleta de Colores Institucional
+   ========================================================================== */
+:root {
+    /* Paleta UNAM / FES Aragón */
+    --unam-azul: #002B7F;        /* Azul marino tradicional */
+    --unam-oro: #D4AF37;         /* Dorado institucional */
+
+    /* Variantes para interacciones (hovers) */
+    --unam-azul-hover: #001f5c;  /* Un tono más oscuro de azul */
+    --unam-oro-hover: #b5952f;   /* Un tono más oscuro de dorado */
+
+    /* Colores neutros para fondos y textos */
+    --fondo-sitio: #f4f6f9;      /* Gris muy claro para contraste */
+    --texto-principal: #333333;  /* Gris oscuro, mejor para leer que negro puro */
+    --texto-mutado: #6c757d;     /* Gris medio para descripciones secundarias */
+}
+
+/* ==========================================================================
+   Resets y Estilos Base del Documento
+   ========================================================================== */
+body {
+    background-color: var(--fondo-sitio);
+    color: var(--texto-principal);
+    /* Interlineado y tipografía limpia, complementando a Bootstrap */
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   Clases Utilitarias (Reutilizables en tu HTML)
+   ========================================================================== */
+
+/* Fondos */
+.bg-unam-blue {
+    background-color: var(--unam-azul) !important;
+    color: white !important;
+}
+
+.bg-unam-gold {
+    background-color: var(--unam-oro) !important;
+    color: var(--unam-azul) !important;
+}
+
+/* Textos */
+.text-unam-blue {
+    color: var(--unam-azul) !important;
+}
+
+.text-unam-gold {
+    color: var(--unam-oro) !important;
+}
+
+/* Botones Personalizados Institucionales */
+.btn-unam-gold {
+    background-color: var(--unam-oro);
+    color: var(--unam-azul);
+    font-weight: 600;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-unam-gold:hover,
+.btn-unam-gold:focus {
+    background-color: var(--unam-oro-hover);
+    color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn-unam-blue {
+    background-color: var(--unam-azul);
+    color: white;
+    font-weight: 600;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-unam-blue:hover,
+.btn-unam-blue:focus {
+    background-color: var(--unam-azul-hover);
+    color: var(--unam-oro);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
