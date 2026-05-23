@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +23,7 @@ public class ControladorAdmin {
 
     // Lista estática en memoria para simular el almacenamiento durante este sprint
     private static final List<Map<String, String>> profesoresTemporales = new ArrayList<>();
+    private static final List<Map<String, String>> programasTemporales = new ArrayList<>(); // ← agregada
 
     @GetMapping("/dashboard")
     public String mostrarDashboard(Model model) {
@@ -38,6 +40,7 @@ public class ControladorAdmin {
         // Enviamos la lista de profesores y el contador dinámico a la vista
         model.addAttribute("listaProfesores", profesoresTemporales);
         model.addAttribute("totalProfesoresMemoria", profesoresTemporales.size());
+        model.addAttribute("listaProgramas", programasTemporales);
 
         return "administrador/dashboard";
     }
@@ -87,14 +90,96 @@ public class ControladorAdmin {
         return "redirect:/administrador/dashboard";
     }
 
-    @PostMapping("/asignar")
-    public String asignarProfesor(
-            @RequestParam String id_profesor,
-            @RequestParam String id_programa,
+    @PostMapping("/programa")
+    public String registrarPrograma(
+            @RequestParam String nombre,
+            @RequestParam String descripcion,
+            @RequestParam String area,
+            @RequestParam String fechaInicio,
+            @RequestParam String fechaTermino,
+            @RequestParam String numeroHoras,
+            @RequestParam String estado,
             RedirectAttributes redirectAttributes) {
 
-        System.out.println("Asignando profesor ID: " + id_profesor + " al programa ID: " + id_programa);
-        redirectAttributes.addFlashAttribute("exito", "Profesor asignado al programa con éxito (Simulación).");
+        Map<String, String> nuevoPrograma = new HashMap<>();
+        nuevoPrograma.put("nombre", nombre);
+        nuevoPrograma.put("descripcion", descripcion);
+        nuevoPrograma.put("area", area);
+        nuevoPrograma.put("fechaInicio", fechaInicio);
+        nuevoPrograma.put("fechaTermino", fechaTermino);
+        nuevoPrograma.put("numeroHoras", numeroHoras);
+        nuevoPrograma.put("estado", estado);
+        programasTemporales.add(nuevoPrograma);
+
+        redirectAttributes.addFlashAttribute("exito", "El programa " + nombre + " fue registrado correctamente.");
+        return "redirect:/administrador/dashboard";
+    }
+
+
+    @PostMapping("/programa/editar")
+    public String editarPrograma(
+            @RequestParam int indice,
+            @RequestParam String nombre,
+            @RequestParam String descripcion,
+            @RequestParam String area,
+            @RequestParam String fechaInicio,
+            @RequestParam String fechaTermino,
+            @RequestParam String numeroHoras,
+            @RequestParam String estado,
+            RedirectAttributes redirectAttributes) {
+
+        if (indice >= 0 && indice < programasTemporales.size()) {
+            Map<String, String> programa = programasTemporales.get(indice);
+            programa.put("nombre", nombre);
+            programa.put("descripcion", descripcion);
+            programa.put("area", area);
+            programa.put("fechaInicio", fechaInicio);
+            programa.put("fechaTermino", fechaTermino);
+            programa.put("numeroHoras", numeroHoras);
+            programa.put("estado", estado);
+
+            redirectAttributes.addFlashAttribute("exito", "El programa " + nombre + " fue actualizado correctamente.");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "No se pudo encontrar el programa a editar.");
+        }
+
+        return "redirect:/administrador/dashboard";
+    }
+
+    @PostMapping("/asignar")
+    public String asignarProfesor(
+            @RequestParam int indiceProfesor,
+            @RequestParam int indicePrograma,
+            RedirectAttributes redirectAttributes) {
+
+        if (indiceProfesor >= 0 && indiceProfesor < profesoresTemporales.size()
+                && indicePrograma >= 0 && indicePrograma < programasTemporales.size()) {
+
+            Map<String, String> profesor = profesoresTemporales.get(indiceProfesor);
+            Map<String, String> programa = programasTemporales.get(indicePrograma);
+
+            String nombreProfesor = profesor.get("nombre");
+
+            // Si el programa ya tiene profesores, agrega al final separado por coma
+            // Si no tiene ninguno, empieza con el primero
+            String profesoresActuales = programa.get("profesores");
+            if (profesoresActuales == null || profesoresActuales.isEmpty()) {
+                programa.put("profesores", nombreProfesor);
+            } else {
+                // Evitar duplicados
+                if (!profesoresActuales.contains(nombreProfesor)) {
+                    programa.put("profesores", profesoresActuales + ", " + nombreProfesor);
+                } else {
+                    redirectAttributes.addFlashAttribute("error", "Ese profesor ya está asignado a este programa.");
+                    return "redirect:/administrador/dashboard";
+                }
+            }
+
+            redirectAttributes.addFlashAttribute("exito",
+                    "El profesor " + nombreProfesor + " fue asignado al programa \"" + programa.get("nombre") + "\" correctamente.");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "No se encontró el profesor o programa seleccionado.");
+        }
 
         return "redirect:/administrador/dashboard";
     }
