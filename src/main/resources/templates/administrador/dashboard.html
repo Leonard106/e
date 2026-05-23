@@ -9,21 +9,98 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 <link rel="stylesheet" th:href="@{/css/base.css}">
 
+<style>
+    /* Paleta Oficial UNAM FES Aragón */
+    :root {
+        --unam-azul: #003D7C;
+        --unam-azul-oscuro: #00254f;
+        --unam-oro: #D4AF37;
+        --unam-oro-oscuro: #b5952f;
+    }
+
+    /* Utilidades de texto y fondo */
+    .text-unam-blue { color: var(--unam-azul) !important; }
+    .bg-unam-blue { background-color: var(--unam-azul) !important; color: #ffffff !important; }
+    .text-unam-gold { color: var(--unam-oro) !important; }
+    .bg-unam-gold { background-color: var(--unam-oro) !important; color: #1a1a1a !important; } /* Texto oscuro obligado para contraste */
+
+    /* Botones Premium */
+    .btn-unam-blue {
+        background-color: var(--unam-azul) !important;
+        color: #ffffff !important;
+        font-weight: 500;
+        border: none;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-unam-blue:hover {
+        background-color: var(--unam-azul-oscuro) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 61, 124, 0.3);
+    }
+
+    .btn-unam-gold {
+        background-color: var(--unam-oro) !important;
+        color: #1a1a1a !important; /* Aquí está tu text-black ya integrado de por vida */
+        font-weight: 600;
+        border: none;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-unam-gold:hover {
+        background-color: var(--unam-oro-oscuro) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);
+    }
+
+    /* Tarjetas interactivas */
+    .card {
+        border-radius: 12px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 .75rem 1.5rem rgba(0,0,0,.08) !important;
+    }
+    .card-header {
+        border-top-left-radius: 12px !important;
+        border-top-right-radius: 12px !important;
+    }
+
+    /* Tablas elegantes */
+    .table-hover tbody tr {
+        transition: background-color 0.2s ease;
+    }
+    .table-hover tbody tr:hover {
+        background-color: rgba(0, 61, 124, 0.04);
+    }
+
+    /* Modales refinados */
+    .modal-content {
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .modal-header.bg-unam-blue {
+        border-bottom: 4px solid var(--unam-oro);
+    }
+    .modal-header.bg-unam-gold {
+        border-bottom: 4px solid var(--unam-azul);
+    }
+</style>
 <main class="container my-5 flex-grow-1">
     <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
         <div>
             <h2 class="text-unam-blue fw-bold mb-1">Panel Global de Administración</h2>
             <p class="text-muted mb-0 small">Métricas generales del Laboratorio de Macrodatos</p>
         </div>
-        <span class="badge bg-unam-blue p-2 rounded-pill">Rol: Administrador</span>
+        <span class="badge bg-unam-blue p-2 rounded-pill shadow-sm">Rol: Administrador</span>
     </div>
 
-    <div th:if="${error}" class="alert alert-danger shadow-sm border-0 mb-4" role="alert">
+    <div th:if="${error}" class="alert alert-danger shadow-sm border-0 mb-4 rounded-3" role="alert">
         <i class="bi bi-exclamation-triangle-fill me-2"></i>
         <span th:text="${error}">Mensaje de error</span>
     </div>
 
-    <div th:if="${exito}" class="alert alert-success shadow-sm border-0 mb-4 alert-dismissible fade show" role="alert">
+    <div th:if="${exito}" class="alert alert-success shadow-sm border-0 mb-4 rounded-3 alert-dismissible fade show" role="alert">
         <i class="bi bi-check-circle-fill me-2"></i>
         <span th:text="${exito}">Mensaje de éxito</span>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -66,7 +143,7 @@
                     <i class="bi bi-people-fill me-2"></i> Usuarios en el Sistema
                 </div>
                 <div class="card-body d-flex flex-column justify-content-around py-4">
-                    <div class="d-flex align-items-center justify-content-between mb-3 p-3 bg-light rounded shadow-sm">
+                    <div class="d-flex align-items-center justify-content-between mb-3 p-3 bg-light rounded shadow-sm border">
                         <div class="d-flex align-items-center">
                             <i class="bi bi-person-video3 text-unam-blue me-3" style="font-size: 2rem;"></i>
                             <div>
@@ -78,7 +155,7 @@
                             <i class="bi bi-eye-fill me-1"></i>Ver listado
                         </button>
                     </div>
-                    <div class="d-flex align-items-center p-3 bg-light rounded shadow-sm">
+                    <div class="d-flex align-items-center p-3 bg-light rounded shadow-sm border">
                         <i class="bi bi-mortarboard-fill text-unam-blue me-3" style="font-size: 2rem;"></i>
                         <div>
                             <h5 class="mb-0 fw-bold" th:text="${datos != null ? datos['usuarios']['totalAlumnos'] : 0}">0</h5>
@@ -91,7 +168,7 @@
 
         <div class="col-lg-8">
             <div class="card shadow-sm border-0 h-100">
-                <div class="card-header bg-unam-blue  fw-bold py-3">
+                <div class="card-header bg-unam-blue fw-bold py-3">
                     <i class="bi bi-bar-chart-line-fill me-2"></i> Avance de Horas acumuladas por Programa
                 </div>
                 <div class="card-body p-0">
@@ -99,8 +176,8 @@
                         <table class="table table-hover align-middle mb-0">
                             <thead class="table-light">
                             <tr>
-                                <th class="ps-4 py-3">Nombre del Programa</th>
-                                <th class="text-end pe-4 py-3">Horas Totales Acumuladas</th>
+                                <th class="ps-4 py-3 text-secondary">Nombre del Programa</th>
+                                <th class="text-end pe-4 py-3 text-secondary">Horas Totales Acumuladas</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -111,8 +188,9 @@
                                 </td>
                             </tr>
                             <tr th:if="${datos == null || #lists.isEmpty(datos.avanceHorasPorPrograma)}">
-                                <td colspan="2" class="text-center py-4 text-muted small">
-                                    <i class="bi bi-info-circle me-1"></i> No hay datos de avance de horas disponibles actualmente.
+                                <td colspan="2" class="text-center py-5 text-muted">
+                                    <i class="bi bi-inbox fs-2 d-block mb-2 text-black-50"></i>
+                                    No hay datos de avance de horas disponibles actualmente.
                                 </td>
                             </tr>
                             </tbody>
@@ -124,17 +202,17 @@
     </div>
 
     <div class="row mb-4">
-        <div class="col-12 d-flex flex-wrap gap-3">
-            <button type="button" class="btn btn-unam-blue" data-bs-toggle="modal" data-bs-target="#modalRegistrarProfesor">
+        <div class="col-12 d-flex flex-wrap gap-3 justify-content-center">
+            <button type="button" class="btn btn-unam-blue px-4 py-2 rounded-pill shadow-sm" data-bs-toggle="modal" data-bs-target="#modalRegistrarProfesor">
                 <i class="bi bi-person-plus-fill me-2"></i>Registrar Profesor
             </button>
-            <button type="button" class="btn btn-unam-gold" data-bs-toggle="modal" data-bs-target="#modalRegistrarPrograma">
+            <button type="button" class="btn btn-unam-gold px-4 py-2 rounded-pill shadow-sm" data-bs-toggle="modal" data-bs-target="#modalRegistrarPrograma">
                 <i class="bi bi-journal-plus me-2"></i>Registrar Programa
             </button>
-            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalAsignarProfesor">
+            <button type="button" class="btn btn-outline-primary px-4 py-2 rounded-pill shadow-sm bg-white" data-bs-toggle="modal" data-bs-target="#modalAsignarProfesor">
                 <i class="bi bi-person-check-fill me-2"></i>Asignar Profesor a Programa
             </button>
-            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalListadoProgramas">
+            <button type="button" class="btn btn-outline-secondary px-4 py-2 rounded-pill shadow-sm bg-white" data-bs-toggle="modal" data-bs-target="#modalListadoProgramas">
                 <i class="bi bi-card-list me-2"></i>Ver Programas
             </button>
         </div>
@@ -142,49 +220,52 @@
 </main>
 
 <div class="modal fade" id="modalRegistrarProfesor" tabindex="-1" aria-labelledby="modalRegistrarProfesorLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header bg-unam-blue ">
-                <h5 class="modal-title" id="modalRegistrarProfesorLabel">Registrar Nuevo Profesor</h5>
+            <div class="modal-header bg-unam-blue">
+                <h5 class="modal-title fw-bold" id="modalRegistrarProfesorLabel"><i class="bi bi-person-badge me-2"></i>Registrar Nuevo Profesor</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form th:action="@{/administrador/profesores}" method="POST">
-                <div class="modal-body">
-                    <h6 class="text-unam-gold fw-bold border-bottom pb-2">Datos de Usuario</h6>
-                    <div class="row mb-3">
+                <div class="modal-body p-4">
+                    <h6 class="text-unam-gold fw-bold border-bottom pb-2 mb-3"><i class="bi bi-shield-lock me-2"></i>Datos de Acceso</h6>
+                    <div class="row mb-4 bg-light p-3 rounded border">
                         <div class="col-md-6">
-                            <label class="form-label">Correo Institucional</label>
-                            <input type="email" class="form-control" name="correo" required>
+                            <label class="form-label fw-semibold text-secondary small">Correo Institucional</label>
+                            <input type="email" class="form-control shadow-sm" name="correo" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Contraseña Temporal</label>
-                            <input type="password" class="form-control" name="contraseña" required>
+                            <label class="form-label fw-semibold text-secondary small">Contraseña Temporal</label>
+                            <input type="password" class="form-control shadow-sm" name="contraseña" required>
                         </div>
                     </div>
 
-                    <h6 class="text-unam-gold fw-bold border-bottom pb-2 mt-4">Datos Personales</h6>
-                    <div class="row mb-3">
-                        <div class="col-md-12 mb-2">
-                            <label class="form-label">Nombre(s)</label>
-                            <input type="text" class="form-control" name="nombre" required>
+                    <h6 class="text-unam-gold fw-bold border-bottom pb-2 mb-3"><i class="bi bi-person-vcard me-2"></i>Datos Personales</h6>
+                    <div class="row mb-2">
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label fw-semibold text-secondary small">Nombre(s)</label>
+                            <input type="text" class="form-control shadow-sm" name="nombre" required>
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Apellido Paterno</label>
-                            <input type="text" class="form-control" name="apellido_paterno" required>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold text-secondary small">Apellido Paterno</label>
+                            <input type="text" class="form-control shadow-sm" name="apellido_paterno" required>
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Apellido Materno</label>
-                            <input type="text" class="form-control" name="apellido_materno">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold text-secondary small">Apellido Materno</label>
+                            <input type="text" class="form-control shadow-sm" name="apellido_materno">
                         </div>
                         <div class="col-md-6 mt-2">
-                            <label class="form-label">Teléfono</label>
-                            <input type="text" class="form-control" name="telefono" maxlength="10">
+                            <label class="form-label fw-semibold text-secondary small">Teléfono de Contacto</label>
+                            <div class="input-group shadow-sm">
+                                <span class="input-group-text bg-light"><i class="bi bi-telephone"></i></span>
+                                <input type="text" class="form-control" name="telefono" maxlength="10">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-unam-blue">Guardar Profesor</button>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-outline-secondary fw-semibold" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-unam-blue px-4"><i class="bi bi-save me-2"></i>Guardar Profesor</button>
                 </div>
             </form>
         </div>
@@ -192,17 +273,17 @@
 </div>
 
 <div class="modal fade" id="modalAsignarProfesor" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-unam-blue text-white">
                 <h5 class="modal-title fw-bold"><i class="bi bi-person-check-fill me-2"></i>Asignar Profesor a Programa</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form th:action="@{/administrador/asignar}" method="POST">
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Seleccionar Profesor</label>
-                        <select class="form-select" name="indiceProfesor" required>
+                <div class="modal-body p-4">
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold text-unam-blue">Seleccionar Profesor</label>
+                        <select class="form-select form-select-lg shadow-sm" name="indiceProfesor" required>
                             <option value="">-- Elige un profesor --</option>
                             <option th:each="profe, status : ${listaProfesores}"
                                     th:value="${status.index}"
@@ -210,8 +291,8 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Seleccionar Programa</label>
-                        <select class="form-select" name="indicePrograma" required>
+                        <label class="form-label fw-semibold text-unam-blue">Seleccionar Programa</label>
+                        <select class="form-select form-select-lg shadow-sm" name="indicePrograma" required>
                             <option value="">-- Elige un programa --</option>
                             <option th:each="prog, status : ${listaProgramas}"
                                     th:value="${status.index}"
@@ -219,9 +300,9 @@
                         </select>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-unam-gold text-black">Asignar</button>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-outline-secondary fw-semibold" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-unam-gold px-4"><i class="bi bi-link-45deg me-2 fs-5"></i>Vincular</button>
                 </div>
             </form>
         </div>
@@ -229,7 +310,7 @@
 </div>
 
 <div class="modal fade" id="modalListadoProfesores" tabindex="-1" aria-labelledby="modalListadoProfesoresLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header bg-unam-blue text-white">
                 <h5 class="modal-title fw-bold" id="modalListadoProfesoresLabel">
@@ -242,34 +323,40 @@
                     <table class="table table-hover align-middle mb-0">
                         <thead class="table-light">
                         <tr>
-                            <th class="ps-4 py-3">Nombre Completo</th>
-                            <th class="py-3">Correo Institucional</th>
-                            <th class="py-3">Teléfono</th>
-                            <th class="text-end pe-4 py-3">Acciones</th>
+                            <th class="ps-4 py-3 text-secondary">Nombre Completo</th>
+                            <th class="py-3 text-secondary">Correo Institucional</th>
+                            <th class="py-3 text-secondary">Teléfono</th>
+                            <th class="text-end pe-4 py-3 text-secondary">Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="profe, status : ${listaProfesores}">
-                            <td class="ps-4 fw-medium text-dark" th:text="${profe['nombre']}">Juan Pérez</td>
+                            <td class="ps-4 fw-medium text-dark">
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-light rounded-circle p-2 me-3 text-unam-blue"><i class="bi bi-person-fill"></i></div>
+                                    <span th:text="${profe['nombre']}">Juan Pérez</span>
+                                </div>
+                            </td>
                             <td th:text="${profe['correo']}">juan@unam.mx</td>
                             <td th:text="${profe['telefono']}">5512345678</td>
                             <td class="text-end pe-4">
-                                <button class="btn btn-sm btn-unam-gold text-black" data-bs-toggle="modal" th:data-bs-target="'#modalEditar' + ${status.index}">
+                                <button class="btn btn-sm btn-unam-gold rounded-pill px-3 shadow-sm" data-bs-toggle="modal" th:data-bs-target="'#modalEditar' + ${status.index}">
                                     <i class="bi bi-pencil-square me-1"></i>Editar
                                 </button>
                             </td>
                         </tr>
                         <tr th:if="${#lists.isEmpty(listaProfesores)}">
-                            <td colspan="4" class="text-center py-4 text-muted">
-                                <i class="bi bi-info-circle me-1"></i> No hay profesores registrados en esta sesión.
+                            <td colspan="4" class="text-center py-5 text-muted">
+                                <i class="bi bi-inbox fs-2 d-block mb-2 text-black-50"></i>
+                                No hay profesores registrados en esta sesión.
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-outline-secondary fw-semibold" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -277,33 +364,36 @@
 
 <div th:each="profe, status : ${listaProfesores}">
     <div class="modal fade" th:id="'modalEditar' + ${status.index}" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header bg-unam-gold text-black">
+                <div class="modal-header bg-unam-gold">
                     <h5 class="modal-title fw-bold"><i class="bi bi-pencil-square me-2"></i>Modificar Profesor</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form th:action="@{/administrador/profesores/editar}" method="POST">
-                    <div class="modal-body">
+                    <div class="modal-body p-4">
                         <input type="hidden" name="indice" th:value="${status.index}">
 
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Nombre Completo</label>
-                            <input type="text" class="form-control" name="nombre" th:value="${profe['nombre']}" required>
+                            <label class="form-label fw-semibold text-secondary small">Nombre Completo</label>
+                            <input type="text" class="form-control shadow-sm" name="nombre" th:value="${profe['nombre']}" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Correo Institucional</label>
-                            <input type="email" class="form-control" name="correo" th:value="${profe['correo']}" required>
+                            <label class="form-label fw-semibold text-secondary small">Correo Institucional</label>
+                            <input type="email" class="form-control shadow-sm" name="correo" th:value="${profe['correo']}" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Telefono</label>
-                            <input type="number" class="form-control" name="telefono" th:value="${profe['telefono']}" required>
+                            <label class="form-label fw-semibold text-secondary small">Teléfono</label>
+                            <div class="input-group shadow-sm">
+                                <span class="input-group-text bg-light"><i class="bi bi-telephone"></i></span>
+                                <input type="number" class="form-control" name="telefono" th:value="${profe['telefono']}" required>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalListadoProfesores">Regresar</button>
-                        <button type="submit" class="btn btn-unam-blue">Guardar Cambios</button>
+                    <div class="modal-footer bg-light">
+                        <button type="button" class="btn btn-outline-secondary fw-semibold" data-bs-toggle="modal" data-bs-target="#modalListadoProfesores"><i class="bi bi-arrow-left me-2"></i>Regresar</button>
+                        <button type="submit" class="btn btn-unam-blue px-4"><i class="bi bi-check2-circle me-2"></i>Actualizar</button>
                     </div>
                 </form>
             </div>
@@ -311,49 +401,52 @@
     </div>
 </div>
 
-
 <div class="modal fade" id="modalRegistrarPrograma" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-unam-blue text-white">
                 <h5 class="modal-title fw-bold"><i class="bi bi-journal-plus me-2"></i>Registrar Nuevo Programa</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form th:action="@{/administrador/programa}" method="POST">
-                <div class="modal-body">
+                <div class="modal-body p-4">
                     <div class="row g-3">
                         <div class="col-12">
-                            <label class="form-label fw-semibold">Nombre del Programa</label>
-                            <input type="text" class="form-control" name="nombre" required
+                            <label class="form-label fw-semibold text-secondary small">Nombre del Programa</label>
+                            <input type="text" class="form-control shadow-sm border-start border-4 border-warning" name="nombre" required
                                    placeholder="Ej. Desarrollo de Sistemas para Laboratorio de Macrodatos">
                         </div>
                         <div class="col-12">
-                            <label class="form-label fw-semibold">Descripción</label>
-                            <textarea class="form-control" name="descripcion" rows="3"
+                            <label class="form-label fw-semibold text-secondary small">Descripción</label>
+                            <textarea class="form-control shadow-sm" name="descripcion" rows="3"
                                       placeholder="Breve descripción de las actividades y objetivos."></textarea>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">Área o Laboratorio Responsable</label>
-                            <input type="text" class="form-control" name="area" required
-                                   placeholder="Ej. Laboratorio de Macrodatos">
+                            <label class="form-label fw-semibold text-secondary small">Área o Laboratorio Responsable</label>
+                            <div class="input-group shadow-sm">
+                                <span class="input-group-text bg-light"><i class="bi bi-building"></i></span>
+                                <input type="text" class="form-control" name="area" required placeholder="Ej. Lab Macrodatos">
+                            </div>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">Número de Horas Requeridas</label>
-                            <input type="number" class="form-control" name="numeroHoras" required min="1"
-                                   placeholder="Ej. 480">
+                            <label class="form-label fw-semibold text-secondary small">Número de Horas Requeridas</label>
+                            <div class="input-group shadow-sm">
+                                <input type="number" class="form-control" name="numeroHoras" required min="1" placeholder="Ej. 480">
+                                <span class="input-group-text bg-light">Hrs</span>
+                            </div>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">Fecha de Inicio</label>
-                            <input type="date" class="form-control" name="fechaInicio" required>
+                            <label class="form-label fw-semibold text-secondary small">Fecha de Inicio</label>
+                            <input type="date" class="form-control shadow-sm" name="fechaInicio" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">Fecha de Término</label>
-                            <input type="date" class="form-control" name="fechaTermino" required>
+                            <label class="form-label fw-semibold text-secondary small">Fecha de Término</label>
+                            <input type="date" class="form-control shadow-sm" name="fechaTermino" required>
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-semibold">Estado del Programa</label>
-                            <select class="form-select" name="estado" required>
-                                <option value="">-- Seleccionar --</option>
+                        <div class="col-md-12">
+                            <label class="form-label fw-semibold text-secondary small">Estado Inicial del Programa</label>
+                            <select class="form-select shadow-sm border-start border-4 border-info" name="estado" required>
+                                <option value="">-- Seleccionar Estado --</option>
                                 <option value="ACTIVO">Activo</option>
                                 <option value="INACTIVO">Inactivo</option>
                                 <option value="FINALIZADO">Finalizado</option>
@@ -361,9 +454,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-unam-blue">Guardar Programa</button>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-outline-secondary fw-semibold" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-unam-blue px-4"><i class="bi bi-save me-2"></i>Guardar Programa</button>
                 </div>
             </form>
         </div>
@@ -371,7 +464,7 @@
 </div>
 
 <div class="modal fade" id="modalListadoProgramas" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header bg-unam-blue text-white">
                 <h5 class="modal-title fw-bold"><i class="bi bi-card-list me-2"></i>Programas de Servicio Social</h5>
@@ -382,31 +475,35 @@
                     <table class="table table-hover align-middle mb-0">
                         <thead class="table-light">
                         <tr>
-                            <th class="ps-4 py-3">Nombre</th>
-                            <th class="py-3">Área</th>
-                            <th class="py-3">Inicio</th>
-                            <th class="py-3">Término</th>
-                            <th class="py-3">Horas</th>
-                            <th class="py-3">Estado</th>
-                            <th class="py-3">Profesores</th>
-                            <th class="text-end pe-4 py-3">Acciones</th>
+                            <th class="ps-4 py-3 text-secondary">Nombre</th>
+                            <th class="py-3 text-secondary">Área</th>
+                            <th class="py-3 text-secondary">Fechas</th>
+                            <th class="py-3 text-secondary">Horas</th>
+                            <th class="py-3 text-secondary text-center">Estado</th>
+                            <th class="py-3 text-secondary">Profesores</th>
+                            <th class="text-end pe-4 py-3 text-secondary">Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="prog, status : ${listaProgramas}">
-                            <td class="ps-4 fw-medium text-dark" th:text="${prog['nombre']}"></td>
+                            <td class="ps-4 fw-medium text-dark">
+                                <i class="bi bi-bookmark-fill text-unam-gold me-2"></i>
+                                <span th:text="${prog['nombre']}"></span>
+                            </td>
                             <td th:text="${prog['area']}"></td>
-                            <td th:text="${prog['fechaInicio']}"></td>
-                            <td th:text="${prog['fechaTermino']}"></td>
-                            <td th:text="${prog['numeroHoras'] + ' hrs'}"></td>
-                            <td>
+                            <td class="small">
+                                <div><i class="bi bi-play-circle text-success me-1"></i><span th:text="${prog['fechaInicio']}"></span></div>
+                                <div><i class="bi bi-stop-circle text-danger me-1"></i><span th:text="${prog['fechaTermino']}"></span></div>
+                            </td>
+                            <td class="fw-semibold text-unam-blue" th:text="${prog['numeroHoras'] + ' hrs'}"></td>
+                            <td class="text-center">
                                 <span th:classappend="${prog['estado'] == 'ACTIVO'} ? 'bg-success' : (${prog['estado'] == 'INACTIVO'} ? 'bg-warning text-dark' : 'bg-secondary')"
-                                      class="badge rounded-pill" th:text="${prog['estado']}"></span>
+                                      class="badge rounded-pill shadow-sm py-2 px-3" th:text="${prog['estado']}"></span>
                             </td>
                             <td th:text="${prog['profesores'] != null and !prog['profesores'].isEmpty() ? prog['profesores'] : 'Sin asignar'}"
-                                class="small text-muted"></td>
+                                class="small text-muted fst-italic"></td>
                             <td class="text-end pe-4">
-                                <button class="btn btn-sm btn-unam-gold text-black"
+                                <button class="btn btn-sm btn-unam-gold rounded-pill px-3 shadow-sm"
                                         data-bs-toggle="modal"
                                         th:data-bs-target="'#modalEditarPrograma' + ${status.index}">
                                     <i class="bi bi-pencil-square me-1"></i>Editar
@@ -414,16 +511,17 @@
                             </td>
                         </tr>
                         <tr th:if="${#lists.isEmpty(listaProgramas)}">
-                            <td colspan="8" class="text-center py-4 text-muted">
-                                <i class="bi bi-info-circle me-1"></i> No hay programas registrados.
+                            <td colspan="8" class="text-center py-5 text-muted">
+                                <i class="bi bi-inbox fs-2 d-block mb-2 text-black-50"></i>
+                                No hay programas registrados en el sistema.
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-outline-secondary fw-semibold" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -431,43 +529,46 @@
 
 <div th:each="prog, status : ${listaProgramas}">
     <div class="modal fade" th:id="'modalEditarPrograma' + ${status.index}" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header bg-unam-gold text-black">
+                <div class="modal-header bg-unam-gold">
                     <h5 class="modal-title fw-bold"><i class="bi bi-pencil-square me-2"></i>Editar Programa</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form th:action="@{/administrador/programa/editar}" method="POST">
-                    <div class="modal-body">
+                    <div class="modal-body p-4">
                         <input type="hidden" name="indice" th:value="${status.index}">
                         <div class="row g-3">
                             <div class="col-12">
-                                <label class="form-label fw-semibold">Nombre del Programa</label>
-                                <input type="text" class="form-control" name="nombre" th:value="${prog['nombre']}" required>
+                                <label class="form-label fw-semibold text-secondary small">Nombre del Programa</label>
+                                <input type="text" class="form-control shadow-sm" name="nombre" th:value="${prog['nombre']}" required>
                             </div>
                             <div class="col-12">
-                                <label class="form-label fw-semibold">Descripción</label>
-                                <textarea class="form-control" name="descripcion" rows="3" th:text="${prog['descripcion']}"></textarea>
+                                <label class="form-label fw-semibold text-secondary small">Descripción</label>
+                                <textarea class="form-control shadow-sm" name="descripcion" rows="3" th:text="${prog['descripcion']}"></textarea>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label fw-semibold">Área o Laboratorio</label>
-                                <input type="text" class="form-control" name="area" th:value="${prog['area']}" required>
+                                <label class="form-label fw-semibold text-secondary small">Área o Laboratorio</label>
+                                <input type="text" class="form-control shadow-sm" name="area" th:value="${prog['area']}" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label fw-semibold">Número de Horas</label>
-                                <input type="number" class="form-control" name="numeroHoras" th:value="${prog['numeroHoras']}" required min="1">
+                                <label class="form-label fw-semibold text-secondary small">Número de Horas</label>
+                                <div class="input-group shadow-sm">
+                                    <input type="number" class="form-control" name="numeroHoras" th:value="${prog['numeroHoras']}" required min="1">
+                                    <span class="input-group-text bg-light">Hrs</span>
+                                </div>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label fw-semibold">Fecha de Inicio</label>
-                                <input type="date" class="form-control" name="fechaInicio" th:value="${prog['fechaInicio']}" required>
+                                <label class="form-label fw-semibold text-secondary small">Fecha de Inicio</label>
+                                <input type="date" class="form-control shadow-sm" name="fechaInicio" th:value="${prog['fechaInicio']}" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label fw-semibold">Fecha de Término</label>
-                                <input type="date" class="form-control" name="fechaTermino" th:value="${prog['fechaTermino']}" required>
+                                <label class="form-label fw-semibold text-secondary small">Fecha de Término</label>
+                                <input type="date" class="form-control shadow-sm" name="fechaTermino" th:value="${prog['fechaTermino']}" required>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-semibold">Estado</label>
-                                <select class="form-select" name="estado" required>
+                            <div class="col-md-12">
+                                <label class="form-label fw-semibold text-secondary small">Estado Actual</label>
+                                <select class="form-select shadow-sm" name="estado" required>
                                     <option value="ACTIVO"     th:selected="${prog['estado'] == 'ACTIVO'}">Activo</option>
                                     <option value="INACTIVO"   th:selected="${prog['estado'] == 'INACTIVO'}">Inactivo</option>
                                     <option value="FINALIZADO" th:selected="${prog['estado'] == 'FINALIZADO'}">Finalizado</option>
@@ -475,10 +576,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary"
-                                data-bs-toggle="modal" data-bs-target="#modalListadoProgramas">Regresar</button>
-                        <button type="submit" class="btn btn-unam-blue">Guardar Cambios</button>
+                    <div class="modal-footer bg-light">
+                        <button type="button" class="btn btn-outline-secondary fw-semibold"
+                                data-bs-toggle="modal" data-bs-target="#modalListadoProgramas"><i class="bi bi-arrow-left me-2"></i>Regresar</button>
+                        <button type="submit" class="btn btn-unam-blue px-4"><i class="bi bi-check2-circle me-2"></i>Guardar Cambios</button>
                     </div>
                 </form>
             </div>
