@@ -81,3 +81,50 @@ body {
     color: var(--unam-oro);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
+.btn-unam-blue {
+    background-color: #002B7A !important; /* Azul oscuro institucional */
+    color: #ffffff !important;
+    border: 2px solid #002B7A !important;
+    font-weight: 600;
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 43, 122, 0.2);
+}
+
+.btn-unam-blue:hover {
+    background-color: #001A4A !important; /* Azul más oscuro al pasar el mouse */
+    border-color: #001A4A !important;
+    color: #ffffff !important;
+    transform: translateY(-2px); /* Pequeño salto hacia arriba */
+    box-shadow: 0 6px 12px rgba(0, 43, 122, 0.3);
+}
+
+.btn-unam-blue i {
+    color: #ffffff;
+}
+
+/* Botón Dorado (Oro) */
+.btn-unam-gold {
+    background-color: #D59F0F !important; /* Dorado institucional */
+    color: #ffffff !important;
+    border: 2px solid #D59F0F !important;
+    font-weight: 600;
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(213, 159, 15, 0.2);
+}
+
+.btn-unam-gold:hover {
+    background-color: #B3840A !important; /* Dorado más oscuro al pasar el mouse */
+    border-color: #B3840A !important;
+    color: #ffffff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(213, 159, 15, 0.3);
+}
+
+/* Arreglo para el botón de cerrar (la tachita) en el modal azul */
+.btn-close-white {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
