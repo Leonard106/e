@@ -35,7 +35,7 @@
                 <div class="card-body text-center">
                     <i class="bi bi-folder-check mb-2 text-success" style="font-size: 2.2rem;"></i>
                     <h4 class="card-title h6 text-uppercase fw-bold text-muted">Prog. Activos</h4>
-                    <p class="display-6 fw-bold text-dark mb-0" th:text="${datos != null ? datos.programas.activos : 0}">0</p>
+                    <p class="display-6 fw-bold text-dark mb-0" th:text="${datos != null ? datos['programas']['activos'] : 0}">0</p>
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@
                 <div class="card-body text-center">
                     <i class="bi bi-folder-minus mb-2 text-warning" style="font-size: 2.2rem;"></i>
                     <h4 class="card-title h6 text-uppercase fw-bold text-muted">Prog. Inactivos</h4>
-                    <p class="display-6 fw-bold text-dark mb-0" th:text="${datos != null ? datos.programas.inactivos : 0}">0</p>
+                    <p class="display-6 fw-bold text-dark mb-0" th:text="${datos != null ? datos['programas']['inactivos'] : 0}">0</p>
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
                 <div class="card-body text-center">
                     <i class="bi bi-folder-x mb-2 text-danger" style="font-size: 2.2rem;"></i>
                     <h4 class="card-title h6 text-uppercase fw-bold text-muted">Prog. Finalizados</h4>
-                    <p class="display-6 fw-bold text-dark mb-0" th:text="${datos != null ? datos.programas.finalizados : 0}">0</p>
+                    <p class="display-6 fw-bold text-dark mb-0" th:text="${datos != null ? datos['programas']['finalizados'] : 0}">0</p>
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@
                         <div class="d-flex align-items-center">
                             <i class="bi bi-person-video3 text-unam-blue me-3" style="font-size: 2rem;"></i>
                             <div>
-                                <h5 class="mb-0 fw-bold" th:text="${totalProfesoresMemoria != null ? totalProfesoresMemoria : (datos != null ? datos.usuarios.totalProfesores : 0)}">0</h5>
+                                <h5 class="mb-0 fw-bold" th:text="${totalProfesoresMemoria != null ? totalProfesoresMemoria : (datos != null ? datos['usuarios']['totalProfesores'] : 0)}">0</h5>
                                 <small class="text-muted">Profesores Registrados</small>
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                     <div class="d-flex align-items-center p-3 bg-light rounded shadow-sm">
                         <i class="bi bi-mortarboard-fill text-unam-blue me-3" style="font-size: 2rem;"></i>
                         <div>
-                            <h5 class="mb-0 fw-bold" th:text="${datos != null ? datos.usuarios.totalAlumnos : 0}">0</h5>
+                            <h5 class="mb-0 fw-bold" th:text="${datos != null ? datos['usuarios']['totalAlumnos'] : 0}">0</h5>
                             <small class="text-muted">Alumnos Participantes</small>
                         </div>
                     </div>
@@ -105,9 +105,9 @@
                             </thead>
                             <tbody>
                             <tr th:each="prog : ${datos?.avanceHorasPorPrograma}">
-                                <td class="ps-4 fw-medium text-dark" th:text="${prog.nombrePrograma}">Programa de prueba</td>
+                                <td class="ps-4 fw-medium text-dark" th:text="${prog['nombrePrograma']}">Programa de prueba</td>
                                 <td class="text-end pe-4 fw-bold text-unam-blue">
-                                    <span th:text="${prog.horasAcumuladas}">0</span> <small class="text-muted">hrs</small>
+                                    <span th:text="${prog['horasAcumuladas']}">0</span> <small class="text-muted">hrs</small>
                                 </td>
                             </tr>
                             <tr th:if="${datos == null || #lists.isEmpty(datos.avanceHorasPorPrograma)}">
@@ -206,7 +206,7 @@
                             <option value="">-- Elige un profesor --</option>
                             <option th:each="profe, status : ${listaProfesores}"
                                     th:value="${status.index}"
-                                    th:text="${profe.nombre}"></option>
+                                    th:text="${profe['nombre']}"></option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -215,13 +215,13 @@
                             <option value="">-- Elige un programa --</option>
                             <option th:each="prog, status : ${listaProgramas}"
                                     th:value="${status.index}"
-                                    th:text="${prog.nombre}"></option>
+                                    th:text="${prog['nombre']}"></option>
                         </select>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-unam-gold text-white">Asignar</button>
+                    <button type="submit" class="btn btn-unam-gold text-black">Asignar</button>
                 </div>
             </form>
         </div>
@@ -250,9 +250,9 @@
                         </thead>
                         <tbody>
                         <tr th:each="profe, status : ${listaProfesores}">
-                            <td class="ps-4 fw-medium text-dark" th:text="${profe.nombre}">Juan Pérez</td>
-                            <td th:text="${profe.correo}">juan@unam.mx</td>
-                            <td th:text="${profe.telefono}">5512345678</td>
+                            <td class="ps-4 fw-medium text-dark" th:text="${profe['nombre']}">Juan Pérez</td>
+                            <td th:text="${profe['correo']}">juan@unam.mx</td>
+                            <td th:text="${profe['telefono']}">5512345678</td>
                             <td class="text-end pe-4">
                                 <button class="btn btn-sm btn-unam-gold text-black" data-bs-toggle="modal" th:data-bs-target="'#modalEditar' + ${status.index}">
                                     <i class="bi bi-pencil-square me-1"></i>Editar
@@ -289,15 +289,15 @@
 
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Nombre Completo</label>
-                            <input type="text" class="form-control" name="nombre" th:value="${profe.nombre}" required>
+                            <input type="text" class="form-control" name="nombre" th:value="${profe['nombre']}" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Correo Institucional</label>
-                            <input type="email" class="form-control" name="correo" th:value="${profe.correo}" required>
+                            <input type="email" class="form-control" name="correo" th:value="${profe['correo']}" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Telefono</label>
-                            <input type="number" class="form-control" name="telefono" th:value="${profe.telefono}" required>
+                            <input type="number" class="form-control" name="telefono" th:value="${profe['telefono']}" required>
                         </div>
                     </div>
 
@@ -312,7 +312,6 @@
 </div>
 
 
-<!-- ══ MODAL: Registrar Programa ══ -->
 <div class="modal fade" id="modalRegistrarPrograma" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -371,7 +370,6 @@
     </div>
 </div>
 
-<!-- ══ MODAL: Listado de Programas ══ -->
 <div class="modal fade" id="modalListadoProgramas" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -396,16 +394,16 @@
                         </thead>
                         <tbody>
                         <tr th:each="prog, status : ${listaProgramas}">
-                            <td class="ps-4 fw-medium text-dark" th:text="${prog.nombre}"></td>
-                            <td th:text="${prog.area}"></td>
-                            <td th:text="${prog.fechaInicio}"></td>
-                            <td th:text="${prog.fechaTermino}"></td>
-                            <td th:text="${prog.numeroHoras + ' hrs'}"></td>
+                            <td class="ps-4 fw-medium text-dark" th:text="${prog['nombre']}"></td>
+                            <td th:text="${prog['area']}"></td>
+                            <td th:text="${prog['fechaInicio']}"></td>
+                            <td th:text="${prog['fechaTermino']}"></td>
+                            <td th:text="${prog['numeroHoras'] + ' hrs'}"></td>
                             <td>
-                                <span th:classappend="${prog.estado == 'ACTIVO'} ? 'bg-success' : (${prog.estado == 'INACTIVO'} ? 'bg-warning text-dark' : 'bg-secondary')"
-                                      class="badge rounded-pill" th:text="${prog.estado}"></span>
+                                <span th:classappend="${prog['estado'] == 'ACTIVO'} ? 'bg-success' : (${prog['estado'] == 'INACTIVO'} ? 'bg-warning text-dark' : 'bg-secondary')"
+                                      class="badge rounded-pill" th:text="${prog['estado']}"></span>
                             </td>
-                            <td th:text="${prog.profesores != null and !prog.profesores.isEmpty() ? prog.profesores : 'Sin asignar'}"
+                            <td th:text="${prog['profesores'] != null and !prog['profesores'].isEmpty() ? prog['profesores'] : 'Sin asignar'}"
                                 class="small text-muted"></td>
                             <td class="text-end pe-4">
                                 <button class="btn btn-sm btn-unam-gold text-black"
@@ -431,7 +429,6 @@
     </div>
 </div>
 
-<!-- ══ MODALES DINÁMICOS: Editar Programa ══ -->
 <div th:each="prog, status : ${listaProgramas}">
     <div class="modal fade" th:id="'modalEditarPrograma' + ${status.index}" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -446,34 +443,34 @@
                         <div class="row g-3">
                             <div class="col-12">
                                 <label class="form-label fw-semibold">Nombre del Programa</label>
-                                <input type="text" class="form-control" name="nombre" th:value="${prog.nombre}" required>
+                                <input type="text" class="form-control" name="nombre" th:value="${prog['nombre']}" required>
                             </div>
                             <div class="col-12">
                                 <label class="form-label fw-semibold">Descripción</label>
-                                <textarea class="form-control" name="descripcion" rows="3" th:text="${prog.descripcion}"></textarea>
+                                <textarea class="form-control" name="descripcion" rows="3" th:text="${prog['descripcion']}"></textarea>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label fw-semibold">Área o Laboratorio</label>
-                                <input type="text" class="form-control" name="area" th:value="${prog.area}" required>
+                                <input type="text" class="form-control" name="area" th:value="${prog['area']}" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label fw-semibold">Número de Horas</label>
-                                <input type="number" class="form-control" name="numeroHoras" th:value="${prog.numeroHoras}" required min="1">
+                                <input type="number" class="form-control" name="numeroHoras" th:value="${prog['numeroHoras']}" required min="1">
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label fw-semibold">Fecha de Inicio</label>
-                                <input type="date" class="form-control" name="fechaInicio" th:value="${prog.fechaInicio}" required>
+                                <input type="date" class="form-control" name="fechaInicio" th:value="${prog['fechaInicio']}" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label fw-semibold">Fecha de Término</label>
-                                <input type="date" class="form-control" name="fechaTermino" th:value="${prog.fechaTermino}" required>
+                                <input type="date" class="form-control" name="fechaTermino" th:value="${prog['fechaTermino']}" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label fw-semibold">Estado</label>
                                 <select class="form-select" name="estado" required>
-                                    <option value="ACTIVO"     th:selected="${prog.estado == 'ACTIVO'}">Activo</option>
-                                    <option value="INACTIVO"   th:selected="${prog.estado == 'INACTIVO'}">Inactivo</option>
-                                    <option value="FINALIZADO" th:selected="${prog.estado == 'FINALIZADO'}">Finalizado</option>
+                                    <option value="ACTIVO"     th:selected="${prog['estado'] == 'ACTIVO'}">Activo</option>
+                                    <option value="INACTIVO"   th:selected="${prog['estado'] == 'INACTIVO'}">Inactivo</option>
+                                    <option value="FINALIZADO" th:selected="${prog['estado'] == 'FINALIZADO'}">Finalizado</option>
                                 </select>
                             </div>
                         </div>
